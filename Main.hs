@@ -3,12 +3,15 @@
 module Main where
 
 import           Data.Aeson
+import           Data.Aeson.Casing
 import qualified Data.ByteString.Lazy as B
 import           GHC.Generics
 
-data Person = Person { first_name :: String } deriving Generic
+data Person = Person { personFirstName :: String } deriving Generic
 
-instance FromJSON Person
+instance FromJSON Person where
+   parseJSON = genericParseJSON $ aesonPrefix snakeCase
+
 
 main :: IO ()
 main = do
@@ -18,4 +21,4 @@ main = do
     Nothing ->
       putStrLn "Couldn't decode Person"
     Just p ->
-      putStrLn $ "Hi " ++ (first_name p)
+      putStrLn $ "Hi " ++ (personFirstName p)

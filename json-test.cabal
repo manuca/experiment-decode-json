@@ -23,5 +23,6 @@ executable json-test
   build-depends:       base >=4.10 && <4.11
                        , aeson
                        , bytestring
+                       , aeson-casing
   -- hs-source-dirs:
   default-language:    Haskell2010
